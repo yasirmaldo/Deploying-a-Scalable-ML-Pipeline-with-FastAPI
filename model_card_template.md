@@ -1,9 +1,8 @@
 # Model Card
 
-For additional information see the Model Card paper: https://arxiv.org/pdf/1810.03993.pdf
 
 ## Model Details
-- **Model type**: `AdaBoostClassifier` (ensemble of decision‐tree stumps)  
+- **Model type**: `AdaBoostClassifier` 
 - **Framework**: scikit-learn (`sklearn.ensemble.AdaBoostClassifier`)  
 - **Hyperparameters**:  
   - `n_estimators`: 120  
@@ -16,7 +15,7 @@ This model predicts whether an individual’s annual income is **">50K"** or **"
 - **Not for** making high-stakes decisions (e.g., loan approvals, hiring) without thorough bias and fairness auditing.
 
 ## Training Data
-- **Source**: Publicly available U.S. Census Bureau “Adult” dataset (commonly called the “Census Income” dataset).  
+- **Source**: U.S. Census Bureau “Adult” dataset (commonly called the “Census Income” dataset).  
 - **Features used**:  
   - Continuous: age, hours-per-week, capital-gain, capital-loss, education-num, etc.  
   - Categorical: workclass, education, marital-status, occupation, relationship, race, sex, native-country  
@@ -29,29 +28,26 @@ This model predicts whether an individual’s annual income is **">50K"** or **"
 ## Evaluation Data
 - **Split method**: stratified 80/20 train/test split on the original dataset.  
 - **Test set size**: 20% of the full dataset, held out during training.  
-- **Slice evaluation**: performance measured on subgroups of each categorical feature (e.g., by `education`, `sex`, `race`).
+- **Slice evaluation**: performance measured on subgroups of each categorical feature 
 
 ## Metrics
-_Please include the metrics used and your model's performance on those metrics._
-- **Precision**: 0.XXXX  
-- **Recall**: 0.XXXX  
-- **F1-score**: 0.XXXX  
+- **Precision**: 0.7131
+- **Recall**: 0.6850  
+- **F1-score**: 0.6988  
 
-(_Replace “0.XXXX” with the actual values from your test run._)
 
 ## Ethical Considerations
 - **Potential biases**:  
-  - The dataset is known to reflect historical socioeconomic disparities.  
-  - Model may exhibit lower performance on underrepresented groups (e.g., certain races, countries).  
+  - The dataset can potentially reflect socioeconomic disparities.  
+  - Model may exhibit lower performance on underrepresented groups.  
 - **Fairness auditing**:  
   - We compute precision, recall, and F1 on each subgroup slice.  
   - Use these slice metrics to detect and mitigate unfair outcomes.
 
 ## Caveats and Recommendations
 - **Caveats**:  
-  - This model is trained on census data collected in the 1990s and may not generalize to current populations.  
+  - This model is trained on census data collected in the past and may not generalize to current populations.  
   - Performance on minority subgroups may be unstable if slice counts are small.  
 - **Recommendations**:  
   - Retrain or recalibrate on more recent, diverse data before deployment.  
-  - Incorporate additional fairness constraints or post-processing steps if used in decision-making.  
-  - Monitor slice performance in production and retrain periodically.  
+ 
